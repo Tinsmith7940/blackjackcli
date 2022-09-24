@@ -122,8 +122,8 @@ def print_player_dealt_card(seat,card):
     pause()
 
 def print_placing_bets_title():
-    border = "============================="
-    tagline = "|| Beginning to Place Bets ||"
+    border = "================"
+    tagline = "|| Place Bets ||"
 
     title = border + '\n' + tagline + '\n' + border
 
@@ -131,8 +131,8 @@ def print_placing_bets_title():
     pause()
 
 def print_dealing_cards_title(players):
-    border = "============================="
-    tagline = "|| Beginning to Deal Cards ||"
+    border = "================"
+    tagline = "|| Deal Cards ||"
 
     title = border + '\n' + tagline + '\n' + border
 

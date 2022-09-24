@@ -182,7 +182,7 @@ def test_dealer_has_blackjack_win_routine():
         player.get_hand().add_cards(tD.EIGHTEEN_HAND)
 
     game.execute_player_turns()
-
+    game.execute_dealer_turn()
     game.execute_winnings_routine()
 
     game.post_mortem()

@@ -152,6 +152,8 @@ class Game:
     # Executing Dealer turn
     #######################
     def execute_dealer_turn(self):
+        if self.dealer.get_blackjack() == True:
+            return # no need to execute dealers turn
         click.clear()
         click.echo("Beginning the dealer's turn....\n")
 
