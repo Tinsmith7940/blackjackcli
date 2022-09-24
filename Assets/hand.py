@@ -7,6 +7,9 @@ class Hand:
     def add_card(self, card):
         self.cards.append(card)
 
+    def add_cards(self, cards):
+        self.cards = cards
+
     def place_bet(self, bet):
         self.wager = bet
 
