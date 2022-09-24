@@ -1,4 +1,20 @@
-Dependencies:
+# Notes
+========
+* https://bicyclecards.com/how-to-play/blackjack/
+* Players may place bets
+* A Player with blackjack, when the dealer does not have it, results in a 1.5 winnings
+* A dealer with blackjack will auto-skip all player actions and resolve to the winnings screen with results. Any players without blackjack lose all bets.
+
+# Dependencies:
+================
+* Python 3.10.7
+* pyfiglet: pip install pyfiglet==0.7
+* click: pip install click
+
+# How-to Run:
 =============
-1) pyfiglet: pip install pyfiglet==0.7
-2) click: pip install click
+python .\main.py
+
+# Other notes
+=============
+* .\test.py contains a series of tests and can be ignore unless debugging/validating
