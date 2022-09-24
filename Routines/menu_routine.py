@@ -1,9 +1,9 @@
-from Routines.game_routine import GameRoutines
+from Assets.application import Application
 import click
 import Utils.input_util as iU, Utils.messaging_util as mU
 
 
-def menu_routine(routine: GameRoutines):
+def menu_routine(routine: Application):
         click.clear()
         menu_options = "Quick Game: Play solo against the dealer [q]\n"
         menu_options += "Custom Game: Multiple players and decks [c]\n"

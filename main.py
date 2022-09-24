@@ -1,8 +1,8 @@
 from Assets.game import Game
 import Routines.intro_routine as iR, Routines.menu_routine as mR
-from Routines.game_routine import GameRoutines
+from Assets.application import Application
 
-routine = GameRoutines()
+routine = Application()
 
 # Intro messaging
 iR.intro_routine(routine)

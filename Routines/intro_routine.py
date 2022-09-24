@@ -1,7 +1,7 @@
-from Routines.game_routine import GameRoutines
+from Assets.application import Application
 import click, Utils.messaging_util as mU
 
-def intro_routine(routine: GameRoutines):
+def intro_routine(routine: Application):
     game_title = routine.game_data["title"]
     mU.print_title(game_title)
     
