@@ -23,6 +23,9 @@ def evaluate_hand_condition(player: Player):
         click.echo("Your current card score is: " + str(handeval))
         return True
 
+def auto_resolve_all_turns_blackjack(players, dealer):
+    dbj = does_player_have_blackjack(dealer.get_hand().get_cards())
+
 def evaluate_score_with_aces(player: Player):
     hand = player.get_hand()
     cards = hand.get_cards()
@@ -86,6 +89,17 @@ def does_player_have_blackjack(cards):
     else:
         return False
 
+def update_players_have_blackjack(players):
+    result = False
+    for player in players:
+        cards = player.get_hand().get_cards()
+        if does_player_have_blackjack(cards) == True:
+            player.set_blackjack(True)
+            player.set_score(21)
+            result = True
+
+    return result
+    
 # return blackjack specific card point values
 def get_card_value(card: Card):
     cardrank = card.get_face_value()

@@ -165,3 +165,14 @@ def print_resolve_player_actions_title():
 
     click.echo(title)
     pause_loading(1)   
+
+def print_resolving_dealer_blackjack():
+    click.clear()
+    border = "================================="
+    tagline = "||     Dealer has BlackJack    ||"
+    tagline += "\n|| Auto-resolving and skipping ||"
+
+    title = border + '\n' + tagline + '\n' + border
+
+    click.echo(title)
+    pause_loading(1)  

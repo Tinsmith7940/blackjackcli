@@ -101,6 +101,14 @@ class Game:
     ########################
     def execute_player_turns(self):
         mU.print_resolve_player_actions_title()
+
+        result = scoring.does_player_have_blackjack(self.dealer.get_hand().get_cards())
+        if result == True:
+            self.dealer.set_blackjack()
+            mU.print_resolving_dealer_blackjack()
+            scoring.update_players_have_blackjack(self.players)
+            return # Do not want to continue with player turns, must immediately resolve blackjack
+            return
         for player in self.players:
             self.execute_player_turn(player)
 

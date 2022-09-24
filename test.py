@@ -1,5 +1,6 @@
 from Assets.player import Player
 from Assets.dealer import Dealer
+from Assets.game import Game
 import Data.test_data as tD, Utils.black_jack as rules
 
 def test_player_blackjack():
@@ -172,6 +173,34 @@ def test_dealer_beats_player():
     winnings = player.get_hand().get_bet()
     assert winnings == 0, f"player did not have a remaining winnings of 0 as expected: {winnings}"
 
+def test_dealer_has_blackjack_win_routine():
+    game = Game(1,1)
+
+    game.dealer.get_hand().add_cards(tD.BLACKJACK_HAND)
+    for player in game.players:
+        player.create_init_hand(50)
+        player.get_hand().add_cards(tD.EIGHTEEN_HAND)
+
+    game.execute_player_turns()
+
+    game.execute_winnings_routine()
+
+    game.post_mortem()
+
+def test_dealer_and_players_have_blackjack_win_routine():
+    game = Game(2,1)
+
+    game.dealer.get_hand().add_cards(tD.BLACKJACK_HAND)
+    for player in game.players:
+        player.create_init_hand(50)
+        player.get_hand().add_cards(tD.BLACKJACK_HAND)
+
+    game.execute_player_turns()
+
+    game.execute_winnings_routine()
+
+    game.post_mortem()
+
 
 ########################################
 # Validate player/dealer blackjack logic
@@ -215,3 +244,7 @@ test_player_beats_dealer()
 
 # No blackjack, player loses to dealer in points. Winnings are 0
 test_dealer_beats_player()
+
+# Verify that we skip individual player turns when dealer has blackjack
+test_dealer_has_blackjack_win_routine()
+#test_dealer_and_players_have_blackjack_win_routine()
