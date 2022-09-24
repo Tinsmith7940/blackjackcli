@@ -27,6 +27,13 @@ def evaluate_hand_condition(player: Player):
 def evaluate_score_with_aces(player: Player):
     hand = player.get_hand()
     cards = hand.get_cards()
+
+    bJ = does_player_have_blackjack(cards)
+    if bJ == True:
+        player.set_blackjack()
+        player.set_score(21)
+        return 0
+    
     playerscore = get_score_of_non_ace_cards(cards)
     acescore = get_score_of_ace_cards(cards, playerscore)
 
@@ -36,10 +43,6 @@ def evaluate_score_with_aces(player: Player):
     if total_playerscore > 21:
         score = -1 # Bust
         player.set_bust()
-        return score
-    elif total_playerscore == 21 and len(hand.get_cards()) == 2:
-        score = 0 # Blackjack
-        player.set_blackjack()
         return score
     else:
         return total_playerscore
@@ -69,7 +72,21 @@ def get_score_of_ace_cards(cards, score):
 
         return acescore
 
-        
+
+# evaluate whether player has blackjack or not
+# Blackjack is an initial hand of one ACE and one 10 card (face or pip)
+def does_player_have_blackjack(cards):
+    if len(cards) > 2:
+        return False
+    elif num_of_aces_in_hand(cards) == 1:
+        nonacescore = get_score_of_non_ace_cards(cards)
+        if nonacescore == 10:
+            return True
+        else:
+            return False
+    else:
+        return False
+
 # return blackjack specific card point values
 def get_card_value(card: Card):
     cardrank = card.get_face_value()
