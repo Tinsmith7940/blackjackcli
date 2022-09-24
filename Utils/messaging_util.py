@@ -1,5 +1,5 @@
 from pyfiglet import Figlet
-import click
+import click, time
 
 def get_card_details(card):
     return card.get_face_value() + " of " + card.get_suit()
@@ -73,12 +73,6 @@ def build_not_a_valid_arument_message(c):
     msg = "'" + c + "' is not a valid argument. Please try again."
     return msg
 
-def print_title(game_title):
-    click.clear()
-    title = Figlet(font='slant')
-        
-    print(title.renderText(game_title))
-
 def build_player_title(seat):
     playername = "Player " + str(seat)
 
@@ -95,3 +89,79 @@ def build_player_title(seat):
     msg += "\n|| " + playername + " ||\n"
     msg += frame
     return msg
+
+def pause(t=0.5):
+    time.sleep(t)
+
+def pause_loading(t=1, sequence=[1,2]):
+    with click.progressbar(sequence) as bar:
+        for x in bar:
+            time.sleep(t)
+
+def print_title(game_title):
+    click.clear()
+    title = Figlet(font='slant')
+        
+    print(title.renderText(game_title))
+
+
+def print_player_dealt_card(seat,card):
+    face = card.get_face_value()
+    suit = card.get_suit()
+
+    msg = ""
+    if seat > -1:
+        msg = f"Player {seat} was dealt a {face} of {suit}"
+    else:
+        msg = "Dealer drew "
+        if card.get_orientation() == True:
+            msg += f"a {face} of {suit}"
+        else:
+            msg += "a facedown card"
+    click.echo(msg)
+    pause()
+
+def print_placing_bets_title():
+    border = "============================="
+    tagline = "|| Beginning to Place Bets ||"
+
+    title = border + '\n' + tagline + '\n' + border
+
+    click.echo(title)
+    pause()
+
+def print_dealing_cards_title(players):
+    border = "============================="
+    tagline = "|| Beginning to Deal Cards ||"
+
+    title = border + '\n' + tagline + '\n' + border
+
+    click.echo(title)
+    pause()
+    click.echo()
+    click.echo("Player order starting at dealer's left and going clockwise is:")
+
+    for player in players:
+        click.echo(f"Player {player.get_seat()}")
+
+    click.pause()
+
+def print_winnings_title():
+    click.clear()
+    border = "========================"
+    tagline = "|| Calculate Winnings ||"
+
+    title = border + '\n' + tagline + '\n' + border
+
+    click.echo(title)
+    pause_loading(2)
+
+def print_resolve_player_actions_title():
+    click.clear()
+    border = "===================================="
+    tagline = "|| Time to Resolve Player Actions ||"
+
+    title = border + '\n' + tagline + '\n' + border
+
+    click.echo(title)
+    pause_loading(1)   

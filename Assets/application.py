@@ -9,7 +9,7 @@ class Application():
 
     def close_game(self):
         click.clear()
-        mU.print_title("Thanks for playing!!")
+        mU.print_title("Play again soon!!")
         exit()
         
 

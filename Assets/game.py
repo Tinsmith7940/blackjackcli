@@ -34,6 +34,7 @@ class Game:
     def place_bets(self):
         for player in self.players:
             click.clear();
+            mU.print_placing_bets_title()
             seat_num = player.seat
             msg = "Player " + str(seat_num) + " please place your bet:"
             bet = iUtil.get_integer_input_within_range(msg,2,500,5)
@@ -41,6 +42,8 @@ class Game:
             player.create_init_hand(bet)
 
     def deal_cards(self):
+        click.clear()
+        mU.print_dealing_cards_title(self.players)
         self.issue_cards_to_players()
         self.issue_card_dealer_faceup()
         self.issue_cards_to_players()
@@ -53,7 +56,7 @@ class Game:
     ######################################
     def issue_cards_to_players(self):
         for player in self.players:
-            self.give_player_card(player, 0)
+            self.give_player_card(player, True)
 
 
     def give_player_card(self,player, messaging = False, hand_index=0, faceup=True):
@@ -66,8 +69,9 @@ class Game:
         self.game_decks.pop(0) # remove the card from the deck
 
         if messaging:
-            click.clear()
-            click.echo("Dealer hands you a " + card.get_face_value() + " of " + card.get_suit())
+            #click.clear()
+            #click.echo("Dealer hands you a " + card.get_face_value() + " of " + card.get_suit())
+            mU.print_player_dealt_card(player.get_seat(),card)
             click.pause()
 
     def print_all_player_cards(self):
@@ -80,10 +84,10 @@ class Game:
         self.dealer.print_player_cards()
 
     def issue_card_dealer_faceup(self):
-        self.give_player_card(self.dealer,0,0,True)
+        self.give_player_card(self.dealer,True,0,True)
     
     def issue_card_dealer_facedown(self):
-        self.give_player_card(self.dealer,0,0,False)      
+        self.give_player_card(self.dealer,True,0,False)      
 
     def expose_face_down_cards(self):
         for card in self.dealer.get_hand().get_cards():
@@ -96,6 +100,7 @@ class Game:
     # Execute Players turn
     ########################
     def execute_player_turns(self):
+        mU.print_resolve_player_actions_title()
         for player in self.players:
             self.execute_player_turn(player)
 
@@ -140,11 +145,10 @@ class Game:
     #######################
     def execute_dealer_turn(self):
         click.clear()
-        click.echo("Beginning the dealers turn....\n")
+        click.echo("Beginning the dealer's turn....\n")
 
         self.expose_face_down_cards()
         self.print_dealer_cards()
-        click.pause()
         self.process_dealer_action()
 
     def process_dealer_action(self):
@@ -155,14 +159,14 @@ class Game:
             if continue_dealer_action:
                 self.issue_card_dealer_faceup()
                 self.print_dealer_cards()
-                click.pause()
+                
 
 
     #####################
     # Round Winnings Calc
     #####################
     def execute_winnings_routine(self):
-        
+        mU.print_winnings_title()
         for player in self.players:
             scoring.get_winnings(player,self.dealer)
 
@@ -171,7 +175,7 @@ class Game:
     ########################
     def post_mortem(self):
         click.clear()
-        click.echo("[[ Final Game Results ]]\n\n\n")
+        click.echo("[[ Round Results ]]\n\n")
         msg = mU.build_post_mortem_message(self.players,self.dealer)
         click.echo(msg)
         click.pause()

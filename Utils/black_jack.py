@@ -1,7 +1,7 @@
 from Assets.player import Player
 from Assets.hand import Hand
 from Assets.card import Card
-import Utils.input_util as iU, click, Utils.messaging_util as mU, Utils.screen_util as sU
+import Utils.input_util as iU, click, Utils.messaging_util as mU
 
 def continue_player_turn(player: Player):
     playerturn = evaluate_hand_condition(player)
@@ -22,7 +22,6 @@ def evaluate_hand_condition(player: Player):
     else:
         click.echo("Your current card score is: " + str(handeval))
         return True
-
 
 def evaluate_score_with_aces(player: Player):
     hand = player.get_hand()
