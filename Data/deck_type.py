@@ -1,0 +1,2 @@
+class DeckType():
+    STANDARD = "standard"

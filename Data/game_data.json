@@ -1,0 +1,25 @@
+{
+    "title": "BlackJack",
+    "messages": {
+        "intro": "Press any key to continue to main menu..."
+    },
+    "menu": {
+        "options": {
+            "quick": {
+                "title": "Quick Game",
+                "description": "You vs. the dealer",
+                "command": "quick"
+            },
+            "custom": {
+                "title": "Custom Game",
+                "description": "Create a custom game with multiple decks and players",
+                "command": "custom"
+            },
+            "exit": {
+                "title": "Exit Game",
+                "description": "",
+                "command": "exit"
+            }
+        }
+    }
+}
