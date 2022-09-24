@@ -205,3 +205,10 @@ def win_bet(player, multiplier):
 
 def lose_bet(player):
     player.get_hand().lose_bet()
+
+def are_all_players_bust(players):
+    allbust = True;
+    for player in players:
+        if player.get_bust() == False:
+            allbust = False
+    return allbust

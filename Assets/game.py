@@ -154,6 +154,8 @@ class Game:
     def execute_dealer_turn(self):
         if self.dealer.get_blackjack() == True:
             return # no need to execute dealers turn
+        if scoring.are_all_players_bust(self.players) == True:
+            return # no need to execute dealers turn if all players bust
         click.clear()
         click.echo("Beginning the dealer's turn....\n")
 

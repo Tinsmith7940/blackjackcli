@@ -201,7 +201,20 @@ def test_dealer_and_players_have_blackjack_win_routine():
 
     game.post_mortem()
 
+def test_dealer_turn_skipped_if_all_players_bust():
+    game = Game(2,1)
 
+    game.dealer.get_hand().add_cards(tD.SEVENTEEN_HAND)
+    for player in game.players:
+        player.create_init_hand(50)
+        player.get_hand().add_cards(tD.BUST_HAND)
+
+    game.execute_player_turns()
+    game.execute_dealer_turn()
+    game.execute_winnings_routine()
+
+    game.post_mortem()   
+ 
 ########################################
 # Validate player/dealer blackjack logic
 ########################################
@@ -246,5 +259,6 @@ test_player_beats_dealer()
 test_dealer_beats_player()
 
 # Verify that we skip individual player turns when dealer has blackjack
-test_dealer_has_blackjack_win_routine()
+#test_dealer_has_blackjack_win_routine()
 #test_dealer_and_players_have_blackjack_win_routine()
+test_dealer_turn_skipped_if_all_players_bust()
