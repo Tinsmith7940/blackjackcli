@@ -1,6 +1,6 @@
 from Assets.player import Player
 from Assets.dealer import Dealer
-import Data.test_data as tD, Routines.Scoring.black_jack as rules
+import Data.test_data as tD, Utils.black_jack as rules
 
 def test_player_blackjack():
     player = Player(0)

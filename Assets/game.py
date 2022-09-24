@@ -1,5 +1,5 @@
 import Utils.deck_util as deckbuilder,click, Utils.input_util as iUtil
-import Utils.player_util as playerUtil, Routines.Scoring.black_jack as scoring, Utils.messaging_util as mU
+import Utils.player_util as playerUtil, Utils.black_jack as scoring, Utils.messaging_util as mU
 from Data.deck_type import DeckType
 from Assets.dealer import Dealer
 

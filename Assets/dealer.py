@@ -1,6 +1,4 @@
-from operator import truediv
 from Assets.player import Player
-import Routines.Scoring.black_jack as scoring
 
 class Dealer(Player):
     def __init__(self):
