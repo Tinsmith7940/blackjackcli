@@ -13,4 +13,4 @@
 python .\main.py
 
 # Other notes
-* .\test.py contains a series of tests and can be ignore unless debugging/validating
+* .\test.py contains a series of tests and can be ignored unless debugging/validating
