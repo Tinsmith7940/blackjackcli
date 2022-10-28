@@ -8,7 +8,7 @@ class Game:
     # Define the type and number of decks in play
     # Always shuffle the deck at the beginning of the game
 
-    def __init__(self, player_number=1, deck_number=1, deck_type=DeckType.STANDARD):
+    def __init__(self, player_number=1, deck_number=1, deck_type=DeckType.STANDARD, toplimit=22):
         self.player_number = player_number
         self.deck_number = deck_number
         self.deck_type = deck_type
@@ -20,6 +20,7 @@ class Game:
         self.game_decks = deckbuilder.shuffle(self.game_decks)
 
         self.players = playerUtil.create_players(self.player_number)
+        self.toplimit = toplimit
 
 
     def get_number_of_players(self):
@@ -126,7 +127,7 @@ class Game:
             click.clear()
             title = mU.build_player_title(player.get_seat())
             click.echo(title)
-            continue_turn = scoring.continue_player_turn(player)
+            continue_turn = scoring.continue_player_turn(player, self.toplimit)
             if continue_turn:
                 player.print_player_cards()
                 c = click.prompt(msg, type=str)
@@ -167,7 +168,7 @@ class Game:
         continue_dealer_action = True
         
         while(continue_dealer_action):
-            continue_dealer_action = scoring.continue_dealer_turn(self.dealer)
+            continue_dealer_action = scoring.continue_dealer_turn(self.dealer, self.toplimit)
             if continue_dealer_action:
                 self.issue_card_dealer_faceup()
                 self.print_dealer_cards()

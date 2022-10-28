@@ -8,8 +8,8 @@ def build_standard_card_deck():
 
     json_obj = json.loads(data)
 
-    suits = json_obj[DeckType.STANDARD]['suits']
-    ranks = json_obj[DeckType.STANDARD]['ranks']
+    suits = json_obj[DeckType.JONSDECK]['suits']
+    ranks = json_obj[DeckType.JONSDECK]['ranks']
 
     deck = []
     for suit in suits:

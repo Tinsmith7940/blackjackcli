@@ -12,9 +12,9 @@ def menu_routine(routine: Application):
         click.echo(menu_options)
 
         while (True):
-            c = click.getchar()
+            uinput = click.getchar()
             click.echo()
-
+            c = iU.sanitize_input_case_sensitivity(uinput)
             if c == 'q' or c == 'c':
                 # initiate quick game
                 return menu_sub_routine(c)
