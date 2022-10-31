@@ -16,3 +16,6 @@ def get_specific_integer_inputs(msg, integers=[1,11]):
             return c
         else:
             click.echo("\n Please enter a valid integer value " + str(integers) + "...")
+
+def sanitize_input_case_sensitivity(msg):
+    return msg.lower()

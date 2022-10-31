@@ -8,7 +8,7 @@ def test_player_blackjack():
     player.create_init_hand(5)
     player.get_hand().add_cards(tD.BLACKJACK_HAND)
 
-    result = rules.evaluate_score_with_aces(player)
+    result = rules.evaluate_score_with_aces(player, 22)
 
     assert result == 0, f"did not get a result of '0' as expected. Returned value: {result}"
     assert player.get_blackjack() == True
@@ -18,7 +18,7 @@ def test_player_bust():
     player.create_init_hand(5)
     player.get_hand().add_cards(tD.BUST_HAND)
 
-    result = rules.evaluate_score_with_aces(player)
+    result = rules.evaluate_score_with_aces(player,23)
 
     assert result == -1, f"did not get a result of '-1' as expected. Returned value: {result}"
     assert player.get_bust() == True
@@ -30,7 +30,7 @@ def test_player_scoring():
     player.create_init_hand(5)
     player.get_hand().add_cards(tD.TWENTYONE_NO_BLACKJACK_HAND)
 
-    result = rules.evaluate_score_with_aces(player)
+    result = rules.evaluate_score_with_aces(player,22)
 
     assert result == 21, f"got score different than 21: {result}"
     assert player.get_blackjack() == False
@@ -40,7 +40,7 @@ def test_player_scoring():
     player.create_init_hand(5)
     player.get_hand().add_cards(tD.EIGHTEEN_HAND)
 
-    result = rules.evaluate_score_with_aces(player)
+    result = rules.evaluate_score_with_aces(player,22)
 
     assert result == 18, f"got score different than 18: {result}"
 
@@ -48,7 +48,7 @@ def test_continue_dealer_turn_on_blackjack():
     dealer = Dealer()
     dealer.get_hand().add_cards(tD.BLACKJACK_HAND)
 
-    result = rules.continue_dealer_turn(dealer)
+    result = rules.continue_dealer_turn(dealer,22)
 
     score = dealer.get_score()
     assert result == False, f"did not get a result of 'False' for continuing the dealer's turn after blackjack. Result: {result}"
@@ -59,7 +59,7 @@ def test_continue_dealer_turn_on_sixteen():
     dealer = Dealer()
     dealer.get_hand().add_cards(tD.SIXTEEN_HAND)
 
-    result = rules.continue_dealer_turn(dealer)
+    result = rules.continue_dealer_turn(dealer,22)
     score = dealer.get_score()
     assert result == True, f"did not get a result of 'True' for continuing the dealer's turn after 16 hand. Result: {result}"
     assert score == 16, f"Blackjack dealer score was not 16 as expected: {score}"
@@ -68,7 +68,7 @@ def test_continue_dealer_turn_on_seventeen():
     dealer = Dealer()
     dealer.get_hand().add_cards(tD.SEVENTEEN_HAND)
 
-    result = rules.continue_dealer_turn(dealer)
+    result = rules.continue_dealer_turn(dealer,22)
     score = dealer.get_score()
     assert result == False, f"did not get a result of 'False' for continuing the dealer's turn after 16 hand. Result: {result}"
     assert score == 17, f"Blackjack dealer score was not 17 as expected: {score}"
@@ -77,7 +77,7 @@ def test_continue_dealer_turn_on_eighteen_with_ace():
     dealer = Dealer()
     dealer.get_hand().add_cards(tD.DEALER_EIGHTEEN_HAND)
 
-    result = rules.continue_dealer_turn(dealer)
+    result = rules.continue_dealer_turn(dealer,22)
     score = dealer.get_score()
     assert result == False, f"did not get a result of 'False' for continuing the dealer's turn after 16 hand. Result: {result}"
     assert score == 18, f"Blackjack dealer score was not 18 with ACE as expected: {score}"
@@ -86,10 +86,10 @@ def test_dealer_turn_on_bust():
     dealer = Dealer()
     dealer.get_hand().add_cards(tD.BUST_HAND)
 
-    result = rules.continue_dealer_turn(dealer)
+    result = rules.continue_dealer_turn(dealer,22)
     score = dealer.get_score()
     assert result == False, f"did not get a result of 'False' for continuing the dealer's turn after bust. Result: {result}"
-    assert score > 21, f"Blackjack dealer score was > 21 as expected: {score}"
+    assert score > 22, f"Blackjack dealer score was > 21 as expected: {score}"
     assert dealer.get_bust() == True
 
 def test_playerblackjack_dealerblackjack_tie():
@@ -152,9 +152,9 @@ def test_player_beats_dealer():
     dealer = Dealer()
 
     player.create_init_hand(50)
-    player.set_score(20)
+    player.set_score(22)
 
-    dealer.set_score(19)
+    dealer.set_score(21)
     rules.get_winnings(player,dealer)
 
     winnings = player.get_hand().get_bet()
@@ -261,4 +261,4 @@ test_dealer_beats_player()
 # Verify that we skip individual player turns when dealer has blackjack
 #test_dealer_has_blackjack_win_routine()
 #test_dealer_and_players_have_blackjack_win_routine()
-test_dealer_turn_skipped_if_all_players_bust()
+#test_dealer_turn_skipped_if_all_players_bust()

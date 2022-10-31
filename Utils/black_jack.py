@@ -3,13 +3,13 @@ from Assets.hand import Hand
 from Assets.card import Card
 import Utils.input_util as iU, click, Utils.messaging_util as mU
 
-def continue_player_turn(player: Player):
-    playerturn = evaluate_hand_condition(player)
+def continue_player_turn(player: Player, toplimit):
+    playerturn = evaluate_hand_condition(player, toplimit)
     
     return playerturn
 
-def evaluate_hand_condition(player: Player):
-    handeval = evaluate_score_with_aces(player)
+def evaluate_hand_condition(player: Player, toplimit):
+    handeval = evaluate_score_with_aces(player,toplimit)
 
     if handeval == -1:
         click.echo("You went bust!")
@@ -26,7 +26,7 @@ def evaluate_hand_condition(player: Player):
 def auto_resolve_all_turns_blackjack(players, dealer):
     dbj = does_player_have_blackjack(dealer.get_hand().get_cards())
 
-def evaluate_score_with_aces(player: Player):
+def evaluate_score_with_aces(player: Player, toplimit):
     hand = player.get_hand()
     cards = hand.get_cards()
 
@@ -42,7 +42,7 @@ def evaluate_score_with_aces(player: Player):
     total_playerscore = acescore + playerscore
     player.set_score(total_playerscore)
 
-    if total_playerscore > 21:
+    if total_playerscore > toplimit:
         score = -1 # Bust
         player.set_bust()
         return score
@@ -77,17 +77,23 @@ def get_score_of_ace_cards(cards, score):
 
 # evaluate whether player has blackjack or not
 # Blackjack is an initial hand of one ACE and one 10 card (face or pip)
+
 def does_player_have_blackjack(cards):
-    if len(cards) > 2:
-        return False
-    elif num_of_aces_in_hand(cards) == 1:
-        nonacescore = get_score_of_non_ace_cards(cards)
-        if nonacescore == 10:
-            return True
-        else:
-            return False
-    else:
-        return False
+    numberaces =  num_of_aces_in_hand(cards)
+    nonacescore = get_score_of_non_ace_cards(cards)
+
+    return (len(cards) == 2 and numberaces == 1 and nonacescore == 10)
+# def does_player_have_blackjack(cards):
+#     if len(cards) > 2:
+#         return False
+#     elif num_of_aces_in_hand(cards) == 1:
+#         nonacescore = get_score_of_non_ace_cards(cards)
+#         if nonacescore == 10:
+#             return True
+#         else:
+#             return False
+#     else:
+#         return False
 
 def update_players_have_blackjack(players):
     result = False
@@ -115,7 +121,7 @@ def get_card_value(card: Card):
 def get_ace_value_from_player():
     return iU.get_specific_integer_inputs("Please set a value for your ACE card [1/11]")
 
-def continue_dealer_turn(dealer):
+def continue_dealer_turn(dealer,toplimit):
         hand = dealer.get_hand()
         cards = hand.get_cards()
         dealerscore = get_score_of_non_ace_cards(cards)
@@ -123,7 +129,7 @@ def continue_dealer_turn(dealer):
 
         totalscore = dealerscore + acescore
         dealer.set_score(totalscore)
-        if totalscore > 21:
+        if totalscore > toplimit:
             dealer.set_bust()
 
         if totalscore >= 17:
